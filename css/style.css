@@ -1,0 +1,69 @@
+@font-face {
+    font-family: 'Jura';
+    src: url(./fonts/Jura-Regular.ttf);
+}
+
+@font-face {
+    font-family: 'JuraBold';
+    src: url(./fonts/Jura-Bold.ttf);
+}
+
+@font-face {
+    font-family: 'JuraLight';
+    src: url(./fonts/Jura-Light.ttf);
+}
+
+@font-face {
+    font-family: 'JuraMedium';
+    src: url(./fonts/Jura-Medium.ttf);
+}
+
+@font-face {
+    font-family: 'JuraSemiBold';
+    src: url(./fonts/Jura-SemiBold.ttf);
+}
+
+/* Common Styles */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style-type: none;
+    outline: none;
+    font-family: 'Jura', sans-serif;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+/* Mouse Circle */
+
+.mouse-circle, 
+.mouse-dot {
+    border-radius: 50%;
+    position: fixed;
+    z-index: 300;
+}
+.mouse-circle {
+    width: 6rem;
+    height: 6rem;
+    border: 0.1rem solid #c7a622;  
+}
+
+.mouse-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    background-color: #9b0e0e;
+}
+/* End of Mouse Circle */
+
+/* Page BG */
+.page-bg {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0,0,0,0.7)), url(../images/bg.jpeg) center no-repeat; background-size: cover;
+}
