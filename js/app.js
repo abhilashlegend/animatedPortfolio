@@ -60,11 +60,13 @@ document.body.addEventListener("mousemove", e => {
  });
 
  // Main Button
- const mainBtn = document.querySelector(".main-btn");
+ const mainBtn = document.querySelectorAll(".main-btn");
 
+ mainBtn.forEach(btn => {
+    
  let ripple;
 
- mainBtn.addEventListener("mouseenter", e => {
+ btn.addEventListener("mouseenter", e => {
     const left = e.clientX - e.target.getBoundingClientRect().left;
     const top = e.clientY - e.target.getBoundingClientRect().top;
     
@@ -72,9 +74,67 @@ document.body.addEventListener("mousemove", e => {
     ripple.classList.add("ripple")
     ripple.style.left = `${left}px`;
     ripple.style.top = `${top}px`;
-    mainBtn.prepend(ripple);
+    btn.prepend(ripple);
  });
 
- mainBtn.addEventListener("mouseleave", () => {
-    mainBtn.removeChild(ripple);
+ btn.addEventListener("mouseleave", () => {
+    btn.removeChild(ripple);
+    });
  })
+
+// End of Main button
+
+// About Me text
+const aboutMeText = document.querySelector(".about-me-text");
+const aboutMeTextContent = `I am a designer & I create awards winning websites with the best user expereience
+ & I do not talk much, just contact me. :)`;
+
+ Array.from(aboutMeTextContent).forEach(char => {
+    const span = document.createElement('span');
+    span.textContent = char;
+    aboutMeText.appendChild(span);
+
+    span.addEventListener('mouseenter', e => {
+        e.target.style.animation = "aboutMeTextAnim 10s infinite"
+     });
+ });
+
+ // Projects 
+ const container = document.querySelector(".container");
+ const projects = document.querySelectorAll(".project");
+ const projectHideBtn = document.querySelector(".project-hide-btn");
+
+ projects.forEach(project => {
+    project.addEventListener("mouseenter", () => {
+        project.firstElementChild.style.top = `-${project.firstElementChild.offsetHeight -  project.offsetHeight}px`;
+    });
+
+    project.addEventListener("mouseleave", () => {
+        project.firstElementChild.style.top = "2rem";
+    });
+
+    // Big Project Image
+    project.addEventListener("click", () => {
+        const bigImgWrapper = document.createElement("div");
+        bigImgWrapper.className = "project-img-wrapper";
+        container.appendChild(bigImgWrapper);
+
+        const bigImg = document.createElement("img");
+        bigImg.className = "project-img";
+        const imgPath = project.firstElementChild.getAttribute("src");
+        
+        bigImg.setAttribute("src", imgPath);
+        bigImgWrapper.appendChild(bigImg);
+        document.body.style.overflowY = "hidden";
+
+        projectHideBtn.classList.add("change");
+
+        projectHideBtn.addEventListener("click", () => {
+                projectHideBtn.classList.remove("change");
+                bigImgWrapper.remove();
+                document.body.style.overflowY = "scroll";
+        })
+    })
+ });
+
+
