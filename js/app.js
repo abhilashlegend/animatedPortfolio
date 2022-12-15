@@ -104,7 +104,7 @@ const aboutMeTextContent = `I am a designer & I create awards winning websites w
  const projects = document.querySelectorAll(".project");
  const projectHideBtn = document.querySelector(".project-hide-btn");
 
- projects.forEach(project => {
+ projects.forEach((project,i) => {
     project.addEventListener("mouseenter", () => {
         project.firstElementChild.style.top = `-${project.firstElementChild.offsetHeight -  project.offsetHeight}px`;
     });
@@ -134,7 +134,32 @@ const aboutMeTextContent = `I am a designer & I create awards winning websites w
                 bigImgWrapper.remove();
                 document.body.style.overflowY = "scroll";
         })
-    })
+    });
+    i >= 6 && (project.style.cssText = "display:none; opacity:0;");
  });
 
+// Projects Button
+const projectsBtn = document.querySelector(".projects-btn");
+const projectsBtnText = document.querySelector(".projects-btn span");
+let showHideBool = true;
 
+projectsBtn.addEventListener("click", e => {
+    e.preventDefault();
+
+    projectsBtn.firstElementChild.nextElementSibling.classList.toggle("change");
+
+    projects.forEach((project, i) => {
+        if(i >= 6){
+            if(showHideBool){
+                project.style.display = "flex";
+                project.style.opacity = "1";
+                projectsBtnText.textContent = "Show Less";
+            } else {
+                project.style.display = "none";
+                project.style.opacity ="0";
+                projectsBtnText.textContent = "Show More";
+            }
+        }
+    });
+    showHideBool = !showHideBool;
+})
