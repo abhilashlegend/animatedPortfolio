@@ -103,6 +103,7 @@ const aboutMeTextContent = `I am a designer & I create awards winning websites w
  const container = document.querySelector(".container");
  const projects = document.querySelectorAll(".project");
  const projectHideBtn = document.querySelector(".project-hide-btn");
+ const section3 = document.querySelector(".section-3");
 
  projects.forEach((project,i) => {
     project.addEventListener("mouseenter", () => {
@@ -143,6 +144,28 @@ const projectsBtn = document.querySelector(".projects-btn");
 const projectsBtnText = document.querySelector(".projects-btn span");
 let showHideBool = true;
 
+const showProjects = (project, i) => {
+    setTimeout(() => {
+        project.style.display = "flex";
+        section3.scrollIntoView({block: "end"});
+    }, 600)
+    
+    setTimeout(() => {
+        project.style.opacity = "1";
+        section3.scrollIntoView({block: "end"});
+    }, i * 200)
+}
+
+const hideProjects = (project, i) => {
+    setTimeout(() => {
+        project.style.display = "none";
+    }, 1200);
+    
+    setTimeout(() => {
+        project.style.opacity ="0";
+    }, i * 100);
+}
+
 projectsBtn.addEventListener("click", e => {
     e.preventDefault();
 
@@ -151,15 +174,27 @@ projectsBtn.addEventListener("click", e => {
     projects.forEach((project, i) => {
         if(i >= 6){
             if(showHideBool){
-                project.style.display = "flex";
-                project.style.opacity = "1";
+                showProjects(project, i);            
                 projectsBtnText.textContent = "Show Less";
             } else {
-                project.style.display = "none";
-                project.style.opacity ="0";
+                hideProjects(project, i);            
                 projectsBtnText.textContent = "Show More";
             }
         }
     });
     showHideBool = !showHideBool;
 })
+
+// Section 4
+document.querySelectorAll(".service-btn").forEach(service => {
+    service.addEventListener("click", e => {
+        e.preventDefault();
+
+        const serviceText = service.nextElementSibling;
+        serviceText.classList.toggle("change");
+
+        const rightPosition = serviceText.classList.contains("change") ? `calc(100% - ${getComputedStyle(service.firstElementChild).width})` : 0;
+
+        service.firstElementChild.style.right = rightPosition;
+    });
+});
