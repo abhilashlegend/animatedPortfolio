@@ -198,3 +198,28 @@ document.querySelectorAll(".service-btn").forEach(service => {
         service.firstElementChild.style.right = rightPosition;
     });
 });
+
+// Section 5
+// Form
+const formHeading = document.querySelector(".form-heading");
+const formInputs = document.querySelectorAll(".contact-form-input");
+
+formInputs.forEach(input => {
+    input.addEventListener("focus", () => {
+        formHeading.style.opacity = 0;
+        setTimeout(() => {
+            formHeading.textContent = "Your " + input.placeholder;
+            formHeading.style.opacity = 1;
+        }, 300);
+    });
+});
+
+formInputs.forEach(input => {
+    input.addEventListener("blur", () => {
+        formHeading.style.opacity = 0;
+        setTimeout(() => {
+            formHeading.textContent = "Let's Talk";
+            formHeading.style.opacity = 1;
+        }, 300);
+    })
+})
