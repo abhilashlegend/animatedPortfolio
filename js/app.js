@@ -85,27 +85,65 @@ document.body.addEventListener("mousemove", e => {
 // End of Main button
 
 // Progress Bar
+const sections = document.querySelectorAll("section");
+const progressBar = document.querySelector(".progress-bar")
 const halfCircles = document.querySelectorAll(".half-circle");
 const halfCircletop = document.querySelector(".half-circle-top");
 const progressBarCircle = document.querySelector(".progress-bar-circle");
 
+let scrolledPortion = 0;
+let scrollBool = false;
+let imageWrapper = false;
+
 const progressBarFn = () => {
  const pageViewportHeight = window.innerHeight;
- const pageHeight = document.documentElement.scrollHeight;
- const scrolledPortion = window.pageYOffset;
+ let pageHeight = document.documentElement.scrollHeight;
+ scrolledPortion = window.pageYOffset;
 
  const scrolledPortionDegree = (scrolledPortion / (pageHeight - pageViewportHeight)) * 360;
 
  halfCircles.forEach(el => {
     el.style.transform = `rotate(${scrolledPortionDegree}deg)`;
+
+    if(scrolledPortionDegree >= 180){
+        halfCircles[0].style.transform = "rotate(180deg)";
+        halfCircletop.style.opacity = "0";
+     } else {
+        halfCircletop.style.opacity = "1";
+     }
  });
 
- if(scrolledPortionDegree >= 180){
-    halfCircles[0].style.transform = "rotate(180deg)";
-    halfCircletop.style.opacity = "0";
- } else {
-    halfCircletop.style.opacity = "1";
- }
+ scrollBool = scrolledPortion + pageViewportHeight === pageHeight;
+
+// Progress Bar Click
+progressBar.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  if (!imageWrapper) {
+    const sectionPositions = Array.from(sections).map(
+      (section) => scrolledPortion + section.getBoundingClientRect().top
+    );
+
+    const position = sectionPositions.find((sectionPosition) => {
+      return sectionPosition > scrolledPortion;
+    });
+
+    scrollBool ? window.scrollTo(0, 0) : window.scrollTo(0, position);
+  } else {
+    scrollBool
+      ? imageWrapper.scrollTo(0, 0)
+      : imageWrapper.scrollTo(0, imageWrapper.scrollHeight);
+  }
+});
+// End of progress bar click
+
+// Arrow Rotation
+if(scrollBool){
+    progressBarCircle.style.transform = "rotate(180deg)";
+} else {
+    progressBarCircle.style.transform = "rotate(0deg)";
+}
+
 }
 
 
