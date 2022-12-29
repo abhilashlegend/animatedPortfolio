@@ -84,6 +84,32 @@ document.body.addEventListener("mousemove", e => {
 
 // End of Main button
 
+// Progress Bar
+const halfCircles = document.querySelectorAll(".half-circle");
+const halfCircletop = document.querySelector(".half-circle-top");
+const progressBarCircle = document.querySelector(".progress-bar-circle");
+
+const progressBarFn = () => {
+ const pageViewportHeight = window.innerHeight;
+ const pageHeight = document.documentElement.scrollHeight;
+ const scrolledPortion = window.pageYOffset;
+
+ const scrolledPortionDegree = (scrolledPortion / (pageHeight - pageViewportHeight)) * 360;
+
+ halfCircles.forEach(el => {
+    el.style.transform = `rotate(${scrolledPortionDegree}deg)`;
+ });
+
+ if(scrolledPortionDegree >= 180){
+    halfCircles[0].style.transform = "rotate(180deg)";
+    halfCircletop.style.opacity = "0";
+ } else {
+    halfCircletop.style.opacity = "1";
+ }
+}
+
+
+
 // About Me text
 const aboutMeText = document.querySelector(".about-me-text");
 const aboutMeTextContent = `I am a designer & I create awards winning websites with the best user expereience
@@ -128,12 +154,20 @@ const aboutMeTextContent = `I am a designer & I create awards winning websites w
         bigImgWrapper.appendChild(bigImg);
         document.body.style.overflowY = "hidden";
 
+        progressBarFn(bigImgWrapper);
+
+        bigImgWrapper.onscroll = () => {
+        progressBarFn(bigImgWrapper);
+        };
+
         projectHideBtn.classList.add("change");
 
         projectHideBtn.addEventListener("click", () => {
                 projectHideBtn.classList.remove("change");
                 bigImgWrapper.remove();
                 document.body.style.overflowY = "scroll";
+
+                progressBarFn();
         })
     });
     i >= 6 && (project.style.cssText = "display:none; opacity:0;");
@@ -262,4 +296,6 @@ document.addEventListener('scroll', () => {
         menuIcon.classList.remove("show-menu-icon");
         navbar.classList.remove("hide-navbar");
     }
+
+    progressBarFn();
 })
