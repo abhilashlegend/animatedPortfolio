@@ -95,10 +95,17 @@ let scrolledPortion = 0;
 let scrollBool = false;
 let imageWrapper = false;
 
-const progressBarFn = () => {
+const progressBarFn = (bigImgWrapper = false) => {
  const pageViewportHeight = window.innerHeight;
- let pageHeight = document.documentElement.scrollHeight;
- scrolledPortion = window.pageYOffset;
+ let pageHeight = 0;
+
+ if(!bigImgWrapper){
+    pageHeight = document.documentElement.scrollHeight;
+    scrolledPortion = window.pageYOffset;
+ } else {
+    pageHeight = bigImgWrapper.firstElementChild.scrollHeight;
+    scrolledPortion = bigImgWrapper.scrollTop;
+ }
 
  const scrolledPortionDegree = (scrolledPortion / (pageHeight - pageViewportHeight)) * 360;
 
@@ -115,11 +122,13 @@ const progressBarFn = () => {
 
  scrollBool = scrolledPortion + pageViewportHeight === pageHeight;
 
+ console.log(scrolledPortion + pageViewportHeight, pageHeight);
+
 // Progress Bar Click
 progressBar.addEventListener("click", (e) => {
   e.preventDefault();
 
-  if (!imageWrapper) {
+  if (!bigImgWrapper) {
     const sectionPositions = Array.from(sections).map(
       (section) => scrolledPortion + section.getBoundingClientRect().top
     );
@@ -131,8 +140,8 @@ progressBar.addEventListener("click", (e) => {
     scrollBool ? window.scrollTo(0, 0) : window.scrollTo(0, position);
   } else {
     scrollBool
-      ? imageWrapper.scrollTo(0, 0)
-      : imageWrapper.scrollTo(0, imageWrapper.scrollHeight);
+      ? bigImgWrapper.scrollTo(0, 0)
+      : bigImgWrapper.scrollTo(0, bigImgWrapper.scrollHeight);
   }
 });
 // End of progress bar click
@@ -195,7 +204,7 @@ const aboutMeTextContent = `I am a designer & I create awards winning websites w
         progressBarFn(bigImgWrapper);
 
         bigImgWrapper.onscroll = () => {
-        progressBarFn(bigImgWrapper);
+            progressBarFn(bigImgWrapper);
         };
 
         projectHideBtn.classList.add("change");
