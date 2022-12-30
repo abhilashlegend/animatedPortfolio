@@ -125,7 +125,7 @@ const progressBarFn = (bigImgWrapper = false) => {
  console.log(scrolledPortion + pageViewportHeight, pageHeight);
 
 // Progress Bar Click
-progressBar.addEventListener("click", (e) => {
+progressBar.addEventListener("click", e => {
   e.preventDefault();
 
   if (!bigImgWrapper) {
@@ -201,6 +201,7 @@ const aboutMeTextContent = `I am a designer & I create awards winning websites w
         bigImgWrapper.appendChild(bigImg);
         document.body.style.overflowY = "hidden";
 
+        document.removeEventListener("scroll", scrollFn);
         progressBarFn(bigImgWrapper);
 
         bigImgWrapper.onscroll = () => {
@@ -213,7 +214,7 @@ const aboutMeTextContent = `I am a designer & I create awards winning websites w
                 projectHideBtn.classList.remove("change");
                 bigImgWrapper.remove();
                 document.body.style.overflowY = "scroll";
-
+                document.addEventListener("scroll", scrollFn);
                 progressBarFn();
         })
     });
@@ -335,8 +336,8 @@ setInterval(() => {
 const menuIcon = document.querySelector(".menu-icon");
 const navbar = document.querySelector(".navbar");
 
-document.addEventListener('scroll', () => {
-    menuIcon.classList.add('show-menu-icon');
+const scrollFn = () => {
+    menuIcon.classList.add("show-menu-icon");
     navbar.classList.add('hide-navbar');
 
     if(window.scrollY === 0){
@@ -345,4 +346,6 @@ document.addEventListener('scroll', () => {
     }
 
     progressBarFn();
-})
+}
+
+document.addEventListener('scroll', scrollFn);
