@@ -1,9 +1,13 @@
 const mouseCircle = document.querySelector('.mouse-circle');
 const mouseDot = document.querySelector('.mouse-dot');
 
+let mouseCircleBool = true;
 // Mouse Circle 
 const mouseCircleFn = (x, y) => {
-    mouseCircle.style.cssText = `top: ${y}px; left: ${x}px; opacity: 1;`;
+    if(mouseCircleBool){
+        mouseCircle.style.cssText = `top: ${y}px; left: ${x}px; opacity: 1;`;
+    }
+    
     mouseDot.style.cssText = `top: ${y}px; left: ${x}px; opacity: 1;`;
 }
 // End of Mouse Circle
@@ -71,6 +75,38 @@ const stickyElement = (x, y, hoveredEl) => {
     }
 }
 
+ // Mouse Circle Transform
+ const mouseCircleTransform = hoveredEl => {
+    if(hoveredEl.classList.contains("pointer-enter")) {
+        hoveredEl.onmousemove = () => {
+            mouseCircleBool = false;
+            mouseCircle.style.cssText = `
+                width: ${hoveredEl.getBoundingClientRect().width}px;
+                height: ${hoveredEl.getBoundingClientRect().height}px;
+                top: ${hoveredEl.getBoundingClientRect().top}px;
+                left: ${hoveredEl.getBoundingClientRect().left}px;
+                opacity: 1;
+                transform: translate(0, 0);
+                animation: none;
+                border-radius: ${getComputedStyle(hoveredEl).borderBottomLeftRadius};
+                transition: all 0.5s;
+            `;
+        }
+        hoveredEl.onmouseleave = () => {
+            mouseCircleBool = true;
+        }
+
+        document.onscroll = () => {
+            if(!mouseCircleBool){
+                mouseCircle.style.top = `${hoveredEl.getBoundingClientRect().top}px`;
+            }
+        }
+    }
+}
+// End of Mouse Circle Transform
+
+
+
 document.body.addEventListener("mousemove", e => { 
     let x = e.clientX;
     let y = e.clientY;
@@ -83,6 +119,8 @@ document.body.addEventListener("mousemove", e => {
     stickyElement(x, y, hoveredEl);
     
     // End of Sticky ELement
+
+    mouseCircleTransform(hoveredEl)
  });
 
  document.body.addEventListener("mouseleave", () => {
@@ -233,6 +271,7 @@ const aboutMeTextContent = `I am a designer & I create awards winning websites w
         document.body.style.overflowY = "hidden";
 
         document.removeEventListener("scroll", scrollFn);
+        mouseCircle.style.opacity = 0;
         progressBarFn(bigImgWrapper);
 
         bigImgWrapper.onscroll = () => {
