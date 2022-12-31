@@ -137,14 +137,15 @@ html {
 /* Progress bar */
 .progress-bar {
     position: fixed;
-    bottom: 8rem;
+    bottom: 4rem;
     width: 8rem;
     height: 8rem;
-    right: 8rem;
+    right: 4rem;
     background-color: #FFF;
     border-radius: 50%;
     z-index: 200;
     overflow: hidden;
+    transform: translate(-50%, -50%);
 }
 
 .half-circle,
@@ -155,6 +156,7 @@ html {
     width: 50%;
     height: 100%;
     transform-origin: right center;
+    pointer-events: none;
 }
 
 /*
@@ -196,12 +198,14 @@ html {
     color: #FFF;
     font-size: 4rem;
     z-index: 200;
+    transition: transform 0.5s;
+    pointer-events: none;
 }
 /* Navigation */
 .menu-icon {
     position: fixed;
-    top: 0;
-    right: 6rem;
+    top: 3.5rem;
+    right: 0;
     width: 12rem;
     height: 7rem;
     flex-direction: column;
