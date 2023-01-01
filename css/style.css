@@ -799,3 +799,114 @@ html {
 /* End of SlidesShow */
 
 /* End of Section 5 */
+
+/* Responsive */
+@media(max-width:1500px){
+    .circle {
+        width: 15rem;
+        height: 15rem;
+    }
+
+    .main-circle {
+        width: 45rem;
+        height: 45rem;
+    }
+
+    .main-circle:hover {
+        width: 55rem;
+        height: 55rem;
+    }
+
+    .main-circle img {
+        width: 160%;
+        height: 160%;
+    }
+
+    .about-me-text span {
+        font-size: 11rem;
+    }
+
+    .section-4 {
+        margin-bottom: 10rem;
+    }
+
+    .service-btn span {
+        font-size: 9rem;
+    }
+
+    .service-text {
+        font-size: 4rem;
+    }
+}
+
+@media (max-width: 1350px) {
+    .main-btn {
+        width: 12.5rem;
+        height: 12.5rem;
+    }
+
+    .circle {
+        display: none;
+    }
+
+    .progress-bar {
+        right: 1rem;
+        bottom: 0;
+    }
+
+    .about-me-text span {
+        font-size: 10rem;
+    }
+}
+
+@media (max-width: 1150px) {
+    html {
+        font-size: 55%;
+    }
+
+    .mouse-circle, .mouse-dot {
+        display: none;
+    }
+
+    .navbar-link {
+        margin: 0 2rem;
+    }
+
+    .main-circle {
+        width: 40rem;
+        height: 40rem;
+    }
+
+    .main-circle:hover {
+        width: 45rem;
+        height: 45rem;
+    }
+
+    .about-me-text span {
+        font-size: 7.5rem;
+    }
+
+    .project-img {
+        padding: 7rem 11rem;
+    }
+
+    .project-hide-btn {
+        right: 2rem;
+    }
+
+    .service-btn {
+        height: 12rem;
+    }
+
+    .service-btn span {
+        font-size: 8rem;
+    }
+
+    .service-text {
+        font-size: 3.5rem;
+    }
+
+    .slideshow {
+        margin: 5rem;
+    }
+}
