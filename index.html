@@ -196,14 +196,14 @@
             <!-- Form -->
                 <div class="form-wrapper">
                     <h2 class="form-heading">Let's Talk</h2>
-                    <form action="" class="contact-form center">
-                        <input type="text" id="name" class="contact-form-input pointer-enter" placeholder="Name" autocomplete="off" />
+                    <form action="" class="contact-form center" method="post" data-netlify="true">
+                        <input type="text" id="name" name="name" class="contact-form-input pointer-enter" placeholder="Name" autocomplete="off" />
                         <p class="message">Error Message</p>
-                        <input type="text" id="email" class="contact-form-input pointer-enter" placeholder="Email" autocomplete="off" />
+                        <input type="text" id="email" name="email" class="contact-form-input pointer-enter" placeholder="Email" autocomplete="off" />
                         <p class="message">Error Message</p>
-                        <input type="text" id="subject" class="contact-form-input pointer-enter" placeholder="Subject" autocomplete="off" />
+                        <input type="text" id="subject" name="subject" class="contact-form-input pointer-enter" placeholder="Subject" autocomplete="off" />
                         <p class="message">Error Message</p>
-                        <textarea id="message" class="contact-form-input contact-form-textarea pointer-enter" placeholder="Message" autocomplete="off"></textarea>
+                        <textarea id="message" name="message" class="contact-form-input contact-form-textarea pointer-enter" placeholder="Message" autocomplete="off"></textarea>
                         <p class="message">Error Message</p>
                         <input type="submit" class="form-submit-btn pointer-enter" value="Send Request" />
                     </form>
